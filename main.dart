@@ -8,58 +8,88 @@ ART 241 - 50039
 import 'dart:io';
 
 void main() {
-  print("Mulai kalkulator [y]? ");
-  String? kalkulator = stdin.readLineSync();
+  utama();
+}
 
-  switch (kalkulator) {
-    case "y":
-      print('Kalkulator');
-      print('NIP: ART 241 - 50039');
-      print('Menu :');
-      print('1. Penambahan');
-      print('2. Perkalian');
-      print('3. Sebutkan makanan favorite anda?');
-      print('4. Sebutkan rumus menghitung kubus? \n');
-      print('Pilihan ?');
+void utama() {
+  print('Kalkulator');
+  print('NIP: ART 241 - 50039');
+  print('Menu :');
+  print('1. Penambahan');
+  print('2. Perkalian');
+  print('3. Sebutkan makanan favorite anda?');
+  print('4. Sebutkan rumus menghitung kubus luas persegi?');
+  print('5. Exit? \n');
+  print('Masukan pilihan ?');
 
-      String? pilihan = stdin.readLineSync();
+  final pilihan = stdin.readLineSync();
+  functioncalc(pilihan!);
+}
 
-      switch (pilihan) {
-        case "1":
-          print("masukan nilai A :");
-          double a = double.parse(stdin.readLineSync()!);
+String? functioncalc(String pilihan) {
+  if (pilihan == '1') {
+    print("masukan nilai A :");
+    String? a = stdin.readLineSync();
+    print("masukan nilai B :");
+    String? b = stdin.readLineSync();
+    tambah(a!, b!);
+    utama();
+  } else if (pilihan == '2') {
+    print("masukan nilai A :");
+    String? a = stdin.readLineSync();
+    print("masukan nilai B :");
+    String? b = stdin.readLineSync();
+    kali(a!, b!);
+    utama();
+  } else if (pilihan == '3') {
+    print("ketik jawaban : ");
+    String? makanan = stdin.readLineSync();
+    bersih();
+    print("Jawaban anda $makanan \n");
+    utama();
+  } else if (pilihan == '4') {
+    print("ketik jawaban : ");
+    String? rumus = stdin.readLineSync();
+    bersih();
+    print("Jawaban anda $rumus \n");
+    utama();
+  } else if (pilihan == '5') {
+    print('bye..');
+  } else {
+    bersih();
+    print('Belum ada pilihan menu \n');
+    utama();
+  }
+}
 
-          print("masukan nilai B :");
-          double b = double.parse(stdin.readLineSync()!);
-          double hasil = a + b;
-          print('Hasil = $hasil');
-          //print("Kembali ke awal?");
-          //String? kalkulator = stdin.readLineSync();
-          break;
-        case "2":
-          print("masukan nilai A :");
-          double a = double.parse(stdin.readLineSync()!);
+void tambah(String a, String b) {
+  bersih();
+  if ((double.tryParse(a) ?? 0) <= 0.0 || (double.tryParse(b) ?? 0) <= 0.0) {
+    print('format salah, harus numerik \n');
+  } else {
+    double? n1 = double.tryParse(a);
+    double? n2 = double.tryParse(b);
+    var hasil = (n1! + n2!);
+    print('Hasil $hasil \n');
+  }
+}
 
-          print("masukan nilai B :");
-          double b = double.parse(stdin.readLineSync()!);
-          double hasil = a * b;
-          print('Hasil = $hasil');
-          break;
-        case "3":
-          String? makanan = stdin.readLineSync();
-          print("Jawaban anda $makanan");
-          break;
-        case "4":
-          String? rumus = stdin.readLineSync();
-          print("Jawaban anda $rumus");
-          break;
-        default:
-          print("pilihan menu belum dipilih atau tidak ada");
-          break;
-      }
-      break;
-    default:
-      print("pilihan menu belum dipilih atau tidak ada");
-      break;
+void bersih() {
+  if (Platform.isWindows) {
+    print(Process.runSync("clear", [], runInShell: true).stdout);
+  } else {
+    print(Process.runSync("cls", [], runInShell: true).stdout);
+  }
+}
+
+void kali(String a, String b) {
+  bersih();
+  if ((double.tryParse(a) ?? 0) <= 0.0 || (double.tryParse(b) ?? 0) <= 0.0) {
+    print('format salah, harus numerik \n');
+  } else {
+    double? n1 = double.tryParse(a);
+    double? n2 = double.tryParse(b);
+    var hasil = (n1! * n2!);
+    print('Hasil $hasil \n');
   }
 }
